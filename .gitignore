@@ -1,0 +1,71 @@
+# ----------------------------------------------------
+# 1. Global Ignored Files (OS, Editors, Common Artifacts)
+# ----------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# Ignore common build/intermediate files
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.bin
+*.out
+*.map
+*.bak
+
+# --- C/C++ Build & Tooling (Clang, CMake, IDEs) ---
+
+# 2. Clang/clangd Cache and Index Files (Handles all nesting)
+# This will ignore any directory named '.cache' anywhere, e.g., hepf/cppcore/.cache
+**/.cache/
+**/.clangd/
+*.clang-rename
+*.gch  # Precompiled headers (GCC/Clang)
+*.pch
+
+# 3. CMake/Build Directories (Out-of-source builds)
+# Will ignore /build/ and /cmake-build*/ anywhere in the project
+**/build/
+**/Build/
+**/cmake-build*/
+**/CMakeFiles/
+CMakeCache.txt
+install_manifest.txt
+compile_commands.json
+
+# 4. Code Coverage/Profiling (LLVM/GCC)
+*.gcno
+*.gcda
+*.gcov
+*.profdata
+*.profraw
+
+# --- Rust Build Artifacts (Cargo) ---
+
+# 5. Rust Build Directory
+# The target directory contains all build output, dependencies, etc.
+/target/
+
+# Generated files by `cargo test --doc`
+/doc/
+
+# Custom tools/directories (e.g., rust-analyzer config)
+.rustfmt.toml.bak
+# Cargo generates a Cargo.lock file for binaries, which should be committed.
+# Only ignore if using a workspace with many libraries:
+# Cargo.lock
+
+# --- Ada Artifacts (GNAT) ---
+
+# 6. Ada-specific Files
+# Ada Library Information files (crucial for the compiler)
+*.ali
+
+# GNAT tools generate various temporary files
+*.s-
+*.d-
