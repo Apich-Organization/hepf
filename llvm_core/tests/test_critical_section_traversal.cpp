@@ -1,4 +1,5 @@
-// Forward declarations of lock/unlock functions to simulate synchronization primitives.
+// Forward declarations of lock/unlock functions to simulate synchronization
+// primitives.
 void mutex_lock();
 void mutex_unlock();
 void spin_lock();

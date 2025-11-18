@@ -1,12 +1,8 @@
 int g = 0;
 
-void a(int* p) {
-  *p = 1;
-}
+void a(int *p) { *p = 1; }
 
-void b() {
-  a(&g);
-}
+void b() { a(&g); }
 
 void c() {
   int x = 0;

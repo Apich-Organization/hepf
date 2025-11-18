@@ -5,7 +5,8 @@
 
 namespace llvm {
 
-class CriticalSectionTraversalAlternativePass : public PassInfoMixin<CriticalSectionTraversalAlternativePass> {
+class CriticalSectionTraversalAlternativePass
+    : public PassInfoMixin<CriticalSectionTraversalAlternativePass> {
 public:
   CriticalSectionTraversalAlternativePass() = default;
 

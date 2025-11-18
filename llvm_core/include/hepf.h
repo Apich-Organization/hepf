@@ -1,14 +1,4 @@
-#ifndef HEPF_H
-#define HEPF_H
+#ifndef LLVM_CORE_HEPF_H
+#define LLVM_CORE_HEPF_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void registerHelloWorldPass();
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif // HEPF_H
+#endif // LLVM_CORE_HEPF_H

@@ -4,19 +4,19 @@
 #include <iostream>
 #include <string>
 
-TEST(MaxPathPassTest, CorrectlyCalculatesMaxPath) {
+TEST(PathBasedMaxPathTest, CorrectlyCalculatesPathBasedMaxPath) {
   CommandExecutor executor(PROJECT_ROOT_PATH);
 
-  std::string test_file = "test_maxpath.cpp";
-  std::string pass_name = "max-path";
-  std::string opt_level = "1";
+  std::string test_file = "test_path_based_max_path.cpp";
+  std::string pass_name = "path-based-max-path";
+  std::string opt_level = "0";
 
   // 1. Compile the test file to LLVM IR
   executor.run_compile_command(test_file, opt_level);
 
   // Print the IR
   std::cout << "--- LLVM IR ---" << std::endl;
-  std::ifstream ir_file("/tmp/test_maxpath.ll");
+  std::ifstream ir_file("/tmp/test_path_based_max_path.ll");
   std::string ir_line;
   while (std::getline(ir_file, ir_line)) {
     std::cout << ir_line << std::endl;
@@ -46,7 +46,17 @@ TEST(MaxPathPassTest, CorrectlyCalculatesMaxPath) {
   const std::string &stdcout_output = opt_result.stdout_output;
 
   // 3. Check the output
-  ASSERT_TRUE(stderr_output.find("Function: _Z13test_functionii, Basic Blocks: "
-                                 "4, Instructions: 12, MaxPath: 4") !=
+  ASSERT_TRUE(opt_result.success);
+  ASSERT_TRUE(opt_result.stderr_output.find(
+                  "Analyzing function: _Z23test_function_for_pathsi") !=
+              std::string::npos);
+  ASSERT_TRUE(opt_result.stderr_output.find(
+                  "Path 1 (BB count: 3, critical path: 8 instructions)") !=
+              std::string::npos);
+  ASSERT_TRUE(opt_result.stderr_output.find(
+                  "Path 2 (BB count: 3, critical path: 8 instructions)") !=
+              std::string::npos);
+  ASSERT_TRUE(opt_result.stderr_output.find(
+                  "Maximum critical path length: 8 instructions") !=
               std::string::npos);
 }

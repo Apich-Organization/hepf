@@ -9,6 +9,14 @@ add_executable(run_tests
   main_fanout.cpp
   main_critical_section.cpp
   main_critical_section_traversal.cpp
+  main_flow_density.cpp
+  main_feedback_resonance.cpp
+  main_path_enumerator.cpp
+  main_path_based_max_path.cpp
+  main_path_based_inter_proc_fan_out.cpp
+  main_path_based_critical_section_traversal.cpp
+  main_path_based_flow_density.cpp
+  main_path_based_feedback_resonance.cpp
   CommandExecutor.cpp
 )
 

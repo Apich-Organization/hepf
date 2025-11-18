@@ -4,11 +4,11 @@
 #include <iostream>
 #include <string>
 
-TEST(MaxPathPassTest, CorrectlyCalculatesMaxPath) {
+TEST(FeedbackResonanceTest, CorrectlyIdentifiesSCC) {
   CommandExecutor executor(PROJECT_ROOT_PATH);
 
-  std::string test_file = "test_maxpath.cpp";
-  std::string pass_name = "max-path";
+  std::string test_file = "test_feedback_resonance.cpp";
+  std::string pass_name = "hepf-feedback-resonance";
   std::string opt_level = "1";
 
   // 1. Compile the test file to LLVM IR
@@ -16,7 +16,7 @@ TEST(MaxPathPassTest, CorrectlyCalculatesMaxPath) {
 
   // Print the IR
   std::cout << "--- LLVM IR ---" << std::endl;
-  std::ifstream ir_file("/tmp/test_maxpath.ll");
+  std::ifstream ir_file("/tmp/test_feedback_resonance.ll");
   std::string ir_line;
   while (std::getline(ir_file, ir_line)) {
     std::cout << ir_line << std::endl;
@@ -46,7 +46,5 @@ TEST(MaxPathPassTest, CorrectlyCalculatesMaxPath) {
   const std::string &stdcout_output = opt_result.stdout_output;
 
   // 3. Check the output
-  ASSERT_TRUE(stderr_output.find("Function: _Z13test_functionii, Basic Blocks: "
-                                 "4, Instructions: 12, MaxPath: 4") !=
-              std::string::npos);
+  ASSERT_TRUE(opt_result.success);
 }

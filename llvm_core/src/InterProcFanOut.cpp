@@ -10,6 +10,10 @@ using namespace llvm;
 PreservedAnalyses InterProcFanOutPass::run(Module &M, ModuleAnalysisManager &AM) {
     errs() << "=== Inter-Process FanOut Analysis ===\n\n";
 
+    // Define the numbers
+    size_t node_num = 0;
+    size_t edge_num = 0;
+
     // 1. Get the CallGraph
     CallGraph &CG = AM.getResult<CallGraphAnalysis>(M);
 
@@ -21,6 +25,7 @@ PreservedAnalyses InterProcFanOutPass::run(Module &M, ModuleAnalysisManager &AM)
 
     // --- Phase 1: Calculate Fan-Out for Defined Functions ---
     for (auto &Node : CG) {
+        node_num++;
         // Node.first is the calling function (Function*)
         if (Function *F = const_cast<Function*>(Node.first)) {
 
@@ -38,6 +43,7 @@ PreservedAnalyses InterProcFanOutPass::run(Module &M, ModuleAnalysisManager &AM)
 
             // Iterate over all outgoing edges from this node (all calls made by F)
             for (const auto &Edge : *CGN) {
+                edge_num++;
                 const CallGraphNode *CalleeNode = Edge.second;
 
                 if (Function *Callee = CalleeNode->getFunction()) {
@@ -68,7 +74,7 @@ PreservedAnalyses InterProcFanOutPass::run(Module &M, ModuleAnalysisManager &AM)
 
     // --- Phase 2: Output Results ---
     for (const auto& pair : fanOutResults) {
-        errs() << "Function: " << pair.first->getName() << ", Fan-out: " << pair.second << "\n";
+        errs() << "Function: " << pair.first->getName() << ", Fan-out: " << pair.second << "\n" << "Edge Count: " << edge_num << "\n" << "Node Count: " << node_num << "\n";
     }
 
     errs().flush();
